@@ -23,7 +23,7 @@
 <hr>
 <ul class="list-group w-50 p-3" id="messages_list">
     {% for item in items %}
-        <li class="list-group-item" id="{{item.id}}">{{item.id}}: {{item.data}}</li>
+        <li class="list-group-item" data-element="{{item.id}}">{{item.id}}: {{item.data}}</li>
     {% endfor%}
 </ul>
 <script src="../static/js/scripts.js"></script>
