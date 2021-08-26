@@ -1,6 +1,6 @@
 "use strict";
 
-const websock = new WebSocket("ws://localhost:8000/websock")
+const websock = new WebSocket(`wss://${window.location.host}/websock`)
 
 function addMessage(event) {
     let input = document.getElementById("message_id")
