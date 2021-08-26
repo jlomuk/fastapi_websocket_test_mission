@@ -25,5 +25,6 @@ async def root(websocket: WebSocket):
     await websocket.accept()
     while True:
         message = await websocket.receive_json()
-        if message.get('data'):
-            await websocket.send_json({"id": int(message.get('id')) + 1, "data": message.get('data')})
+        data, id = message.get('data').strip(), message.get('id')
+        if data:
+            await websocket.send_json({"id": int(id) + 1, "data": data})
