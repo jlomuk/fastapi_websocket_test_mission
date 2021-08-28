@@ -2,6 +2,9 @@ from fastapi import FastAPI, Request, WebSocket
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from services.counter import get_counter
+
+
 app = FastAPI()
 
 templates = Jinja2Templates(directory='templates')
@@ -23,8 +26,9 @@ async def root(request: Request):
 @app.websocket('/websock')
 async def root(websocket: WebSocket):
     await websocket.accept()
+    counter = get_counter(FAKE_DB)
     while True:
         message = await websocket.receive_json()
-        data, number_element = message.get('data').strip(), message.get('data-element')
+        data = message.get('data').strip()
         if data:
-            await websocket.send_json({"data-element": int(number_element) + 1, "data": data})
+            await websocket.send_json({"data-element": next(counter), "data": data})
